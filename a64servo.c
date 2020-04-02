@@ -191,7 +191,7 @@ enum hrtimer_restart ch15_timer_callback( struct hrtimer *timer )
 
 
 
-void ch_start_timer_callback( unsigned long data )
+void ch_start_timer_callback( struct timer_list *t )
 {
 
  ktime_t ktime;
@@ -533,7 +533,7 @@ static int __init a64servo_init(void)
 	
 //Atach 20mS timer interrupt	
   /* setup your timer to call my_timer_callback */
-  setup_timer(&ch_start_timer, ch_start_timer_callback, 1);
+  timer_setup(&ch_start_timer, ch_start_timer_callback, 0);
 
   hrtimer_init( &ch0_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL );
                 ch0_timer.function = &ch0_timer_callback;
