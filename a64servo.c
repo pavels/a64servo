@@ -263,11 +263,12 @@ static int device_open(struct inode *inode, struct file *file) {
 	 */
   porte = readl(pe_base + PE_DATA);
 
-  sprintf(Message, "00:%03lu,01:%03lu,02:%03lu,03:%03lu,04:%03lu,05:%03lu,06:%03lu,07:%03lu,"
-                   "08:%03lu,09:%03lu,10:%03lu,11:%03lu,12:%03lu,13:%03lu,14:%03lu,15:%03lu\r\n",
-          ch_value[0], ch_value[1], ch_value[2], ch_value[3], ch_value[4],
-          ch_value[5], ch_value[6], ch_value[7], ch_value[8], ch_value[9],
-          ch_value[10], ch_value[11], ch_value[12], ch_value[13], ch_value[14], ch_value[15]);
+  sprintf(Message, "00:%u,01:%u,02:%u,03:%u,04:%u,05:%u,06:%u,07:%u,"
+                   "08:%u,09:%u,10:%u,11:%u,12:%u,13:%u,14:%u,15:%u,16:%u\r\n",
+          ch_value[0] / 1000, ch_value[1] / 1000, ch_value[2] / 1000, ch_value[3] / 1000, ch_value[4] / 1000,
+          ch_value[5] / 1000, ch_value[6] / 1000, ch_value[7] / 1000, ch_value[8] / 1000, ch_value[9] / 1000,
+          ch_value[10] / 1000, ch_value[11] / 1000, ch_value[12] / 1000, ch_value[13] / 1000, ch_value[14] / 1000, ch_value[15] / 1000, 
+          period / 1000);
   Message_Ptr = Message;
   Request_Ptr = Request;
   try_module_get(THIS_MODULE);
