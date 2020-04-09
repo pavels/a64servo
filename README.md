@@ -21,7 +21,7 @@ The module enables PWM functionality at processor pins PE0-PE15. These pins are 
 
 When you load the module, it doesn't change the current configuration of these 16 pins. However, when you use one of the commands from this kernel module, it would automatically changed the pin's direction to output. Even if we stop the PWM available at the specific pin, the direction would remain output. The only way to revert back to the original configuration of the pin before using the PWM function, is to either unload the servo kernel module or to overwrite the pin function using other means (you can set it to input by using the A64 python module, for example).
 
-The signal period
+The signal period can be set and is the same for all channels. The smaller period the larger the jitter of the output signal. Theoretically 1khz frequency is achievable, but this is highly dependent on system load. 
 
 **Usage:** 
 

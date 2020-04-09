@@ -170,7 +170,7 @@ enum hrtimer_restart ch15_timer_callback(struct hrtimer *timer) {
 enum hrtimer_restart start_timer_callback(struct hrtimer *timer) {
 
   ktime_t ktime;
-  
+
   // set enabled channels to HIGH
   porte = readl(pe_base + PE_DATA) | porte_m;
   writel(porte, pe_base + PE_DATA); // start 1 ms impulse
@@ -240,9 +240,9 @@ enum hrtimer_restart start_timer_callback(struct hrtimer *timer) {
     hrtimer_start(&ch15_timer, ktime, HRTIMER_MODE_REL);
   }
 
-	ktime = ktime_set(0, period);
-	hrtimer_forward_now(timer, ktime);
-	return HRTIMER_RESTART;
+  ktime = ktime_set(0, period);
+  hrtimer_forward_now(timer, ktime);
+  return HRTIMER_RESTART;
 }
 
 /* 
@@ -341,7 +341,7 @@ device_write(struct file *file,
   char *chn = Request;
   int i;
 
-	memset(Request, 0, BUF_LEN);
+  memset(Request, 0, BUF_LEN);
 
   for (i = 0; i < length && i < BUF_LEN - 1; i++)
     get_user(Request[i], buffer + i);
@@ -352,12 +352,12 @@ device_write(struct file *file,
     token = strsep(&Request_Ptr, ",");
 
     if (kstrtoint(chn, 10, &ch) == 0) {
-			if(ch == 0x10) {
-				if (kstrtoint(token, 10, &value) == 0) {
-					period = value * 1000; 
-				}
-				continue;
-			}
+      if (ch == 0x10) {
+        if (kstrtoint(token, 10, &value) == 0) {
+          period = value * 1000;
+        }
+        continue;
+      }
       ch &= 0x0f;
       if (kstrtoint(token, 10, &value) == 0) {
         if ((value > 0) && (value < period / 1000)) {
@@ -372,7 +372,7 @@ device_write(struct file *file,
             porte = (readl(pe_base + PE_CONFIG1) & ~(0xf << ch * 4)) | (1 << ch * 4);
             writel(porte, pe_base + PE_CONFIG1);
           }
-        } else if(value < 1) {
+        } else if (value < 1) {
           //disable pin
           // NOTE: Pin state before loading is NOT RESTORED at this point
           // all pins states will be restored when unloading module
@@ -458,7 +458,7 @@ static long device_ioctl(struct file *file, unsigned int ioctl_num, unsigned lon
  * Initialize the module - Register the character device 
  */
 static int __init a64servo_init(void) {
-	ktime_t ktime;
+  ktime_t ktime;
 
   /* 
 	 * Register the character device (atleast try) 
@@ -510,8 +510,8 @@ static int __init a64servo_init(void) {
   hrtimer_init(&start_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
   start_timer.function = &start_timer_callback;
 
-	ktime = ktime_set(0, period);
-	hrtimer_start(&start_timer, ktime, HRTIMER_MODE_REL);
+  ktime = ktime_set(0, period);
+  hrtimer_start(&start_timer, ktime, HRTIMER_MODE_REL);
 
   //TODO:
   pe_base = ioremap(SW_PORTE_IO_BASE, 0x20);
