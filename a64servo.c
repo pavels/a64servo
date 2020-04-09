@@ -263,8 +263,8 @@ static int device_open(struct inode *inode, struct file *file) {
 	 */
   porte = readl(pe_base + PE_DATA);
 
-  sprintf(Message, "00:%u,01:%u,02:%u,03:%u,04:%u,05:%u,06:%u,07:%u,"
-                   "08:%u,09:%u,10:%u,11:%u,12:%u,13:%u,14:%u,15:%u,16:%u\r\n",
+  sprintf(Message, "00:%lu,01:%lu,02:%lu,03:%lu,04:%lu,05:%lu,06:%lu,07:%lu,"
+                   "08:%lu,09:%lu,10:%lu,11:%lu,12:%lu,13:%lu,14:%lu,15:%lu,16:%lu\r\n",
           ch_value[0] / 1000, ch_value[1] / 1000, ch_value[2] / 1000, ch_value[3] / 1000, ch_value[4] / 1000,
           ch_value[5] / 1000, ch_value[6] / 1000, ch_value[7] / 1000, ch_value[8] / 1000, ch_value[9] / 1000,
           ch_value[10] / 1000, ch_value[11] / 1000, ch_value[12] / 1000, ch_value[13] / 1000, ch_value[14] / 1000, ch_value[15] / 1000, 
