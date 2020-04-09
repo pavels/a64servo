@@ -14,7 +14,7 @@
 #define PE_CONFIG0 0x00
 #define PE_CONFIG1 0x04
 #define PE_CONFIG2 0x08
-#define PE_DATA    0x10
+#define PE_DATA 0x10
 
 /* 
  * Set the message of the device driver 
