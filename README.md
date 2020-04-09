@@ -21,6 +21,8 @@ The module enables PWM functionality at processor pins PE0-PE15. These pins are 
 
 When you load the module, it doesn't change the current configuration of these 16 pins. However, when you use one of the commands from this kernel module, it would automatically changed the pin's direction to output. Even if we stop the PWM available at the specific pin, the direction would remain output. The only way to revert back to the original configuration of the pin before using the PWM function, is to either unload the servo kernel module or to overwrite the pin function using other means (you can set it to input by using the A64 python module, for example).
 
+The signal period
+
 **Usage:** 
 
 Execute the script use sudo before each command.
@@ -34,12 +36,20 @@ Unload module
 sudo ./servo.sh unload
 ```
 How to change value of a channel (pin):
-echo CC:VVV, > /dev/servo
-where CC = channel (processor pin #0-#15; gpio pin 5-35), VVV = value : 0 - disabled, 1-999
+echo CC:VVV > /dev/servo
+where 
 
-example: set ch 0 to 356 and ch 5 to 874
+CC = channel (processor pin #0-#15; gpio pin 5-35), CC 16 = set signal period for all channels
+
+VVV = length of ON time in us : 0 - disabled
+
+example: set ch 0 to 5ms and ch 5 to 1ms
 ```bash
-echo 0:356,5:874, > /dev/servo
+echo 0:5000,5:1000 > /dev/servo
+```
+example: set period to 20ms
+```bash
+echo 16:20000 > /dev/servo
 ```
 read settings:
 ```bash
@@ -75,5 +85,3 @@ Number # | Processor pin | GPIO1 pad #
 14 | PE14 | #33
 15 | PE15 | #35
 
-
-_*Work in progress....*_
